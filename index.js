@@ -33,6 +33,13 @@ MongoClient.connect('mongodb://test:letsstop1@ds259410.mlab.com:59410/lets-stop-
     });
 });
 
+app.get("/api/content", (req, res) => {
+    db.collection("content").find({}).toArray(function(err, result) {
+    if (err) throw err;
+        res.status(200).json(result);
+    });
+});
+
 // Put all API endpoints under '/api'
 app.get('/api/passwords', (req, res) => {
   const count = 5;
