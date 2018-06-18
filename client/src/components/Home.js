@@ -54,8 +54,11 @@ class Home extends Component {
     let sections = [];
     if (content[0]) {
         let language = this.state.language;
-        console.log(content[0][language].sections);
-        const arr = content[0][language].sections;
+
+        let arr = content[0][language].sections;
+        if (!arr) {
+            content[0]["en"].sections
+        }
         sections = arr.map(section => {
             return <p onClick={() => this.onSectionClick(section.slug)}>{section.name}</p>;
         });
