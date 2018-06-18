@@ -9,23 +9,29 @@ h1 {
   font-size: 42px;
 }
 
-.passwords {
-  list-style: none;
-  padding: 0;
-  font-size: 32px;
-  margin-bottom: 2em;
+body {
+    background-color: #3498db;
 }
 
-.more {
-  font-size: 32px;
-  font-family: "Courier New", monospace;
-  border: 2px solid #000;
-  background-color: #fff;
-  padding: 10px 25px;
+.section {
+    background-color: white;
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    text-align: center;
+    margin: 0 auto;
 }
-.more:hover {
-  background-color: #FDD836;
+
+.gap {
+    margin-top:40px;
+    margin-bottom: 40px;
 }
-.more:active {
-  background-color: #FFEFA9;
+
+.section-title {
+    color: black;
+}
+
+.section-content {
+    text-align: center;
+    padding-top: 40px;
 }

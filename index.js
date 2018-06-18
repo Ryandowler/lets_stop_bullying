@@ -7,6 +7,7 @@ const app = express();
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use('/images', express.static(__dirname + '/images'));
 
 //connects to mongo
 MongoClient.connect('mongodb://test:letsstop1@ds259410.mlab.com:59410/lets-stop-bullying', (err, database) => {

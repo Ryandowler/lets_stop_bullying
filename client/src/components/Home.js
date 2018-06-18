@@ -42,10 +42,6 @@ class Home extends Component {
                       language: lang
       });
 
-      console.log(result);
-
-      //var test = localStorage.getItem("content");
-      //console.log(JSON.parse(test));
 
   }
 
@@ -60,7 +56,14 @@ class Home extends Component {
             arr = content[0]["en"].sections;
         }
         sections = arr.map(section => {
-            return <p onClick={() => this.onSectionClick(section.slug)}>{section.name}</p>;
+            return <div class="col-md-6 gap" onClick={() => this.onSectionClick(section.slug)}>
+                        <div class="section">
+                            <div class="section-content">
+                                <img src={"/images/" + section.image} height="125px" width="auto" />
+                                <p class="section-title">{section.name}</p>
+                            </div>
+                        </div>
+                </div>;
         });
     }
 
@@ -69,8 +72,8 @@ class Home extends Component {
     }
 
     return (
-        <div>
-            <div>{sections}</div>
+        <div class="container">
+            <div class="row auto-clear">{sections}</div>
         </div>
     );
   }
