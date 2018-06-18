@@ -22,16 +22,18 @@ class Section extends Component {
         let sectionContent;
         let found = false;
 
-        for (let i = 0; i < sec.sections.length; i++) {
-            if (sec.sections[i].slug === this.state.slug) {
-                sectionContent = {
-                    name: sec.sections[i].name,
-                    slug: sec.sections[i].slug,
-                    image: sec.sections[i].image,
-                    colour: sec.sections[i].colour,
-                    pages: sec.sections[i].pages
+        if (arr.sections) {
+            for (let i = 0; i < arr.sections.length; i++) {
+                if (arr.sections[i].slug === this.state.slug) {
+                    sectionContent = {
+                        name: arr.sections[i].name,
+                        slug: arr.sections[i].slug,
+                        image: arr.sections[i].image,
+                        colour: arr.sections[i].colour,
+                        pages: arr.sections[i].pages
+                    }
+                    found = true;
                 }
-                found = true;
             }
         }
 
@@ -50,9 +52,9 @@ class Section extends Component {
 
         const sec = storageJSON[0][language];
 
-        let isInLanguage = checkIsThere(sec);
+        let isInLanguage = this.checkIsThere(sec);
         if (!isInLanguage) {
-            checkIsThere(storageJSON[0]["en"]);
+            this.checkIsThere(storageJSON[0]["en"]);
         }
 
     }
