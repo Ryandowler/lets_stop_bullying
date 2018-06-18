@@ -11,8 +11,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 
-// MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
-MongoClient.connect('mongodb://test:letsstop1@ds259410.mlab.com:59410/lets-stop-bullying', (err, database) => {
+MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
+//MongoClient.connect('mongodb://test:letsstop1@ds259410.mlab.com:59410/lets-stop-bullying', (err, database) => {
 
     //if there is an error log it
     if (err) { console.log(err); }

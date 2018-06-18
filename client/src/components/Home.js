@@ -9,7 +9,8 @@ class Home extends Component {
       this.state = {
           navigate: false,
           content: [],
-          link: ""
+          link: "",
+          language: ""
       }
       this.onSectionClick = this.onSectionClick.bind(this);
   }
@@ -17,6 +18,7 @@ class Home extends Component {
   // Fetch content after first mount
   componentDidMount() {
     this.getContent();
+
   }
 
   getContent = () => {
@@ -35,8 +37,14 @@ class Home extends Component {
 
   onSetResult = (result) => {
       localStorage.setItem("content", JSON.stringify(result));
-      this.setState({ content: result });
-      var test = localStorage.getItem("content");
+      let lang = localStorage.getItem("language");
+      this.setState({ content: result,
+                      language: lang
+      });
+
+      console.log(result);
+
+      //var test = localStorage.getItem("content");
       //console.log(JSON.parse(test));
 
   }
@@ -45,8 +53,9 @@ class Home extends Component {
     const { content } = this.state;
     let sections = [];
     if (content[0]) {
-        console.log(content[0].en.sections);
-        const arr = content[0].en.sections;
+        let language = this.state.language;
+        console.log(content[0][language].sections);
+        const arr = content[0][language].sections;
         sections = arr.map(section => {
             return <p onClick={() => this.onSectionClick(section.slug)}>{section.name}</p>;
         });

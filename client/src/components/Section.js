@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter, Redirect } from "react-router-dom";
 
 class Section extends Component {
 
@@ -7,8 +8,12 @@ class Section extends Component {
 
         this.state = {
             "slug" : this.props.match.params.sectionid,
-            "sections" : []
+            "sections" : [],
+            "content" : {},
+            "navigate" : false,
+            "nextPage": ""
         }
+        this.onPageClick = this.onPageClick.bind(this);
 
     }
 
@@ -19,40 +24,52 @@ class Section extends Component {
 
         const sec = storageJSON[0][language];
 
-        console.log(sec);
-
-        let arr = [];
+        let sectionContent;
 
         for (let i = 0; i < sec.sections.length; i++) {
-            console.log(sec.sections[i].name);
-            arr.push({
-                name: sec.sections[i].name,
-                slug: sec.sections[i].slug,
-                image: sec.sections[i].image,
-                colour: sec.sections[i].colour
-            });
+            if (sec.sections[i].slug === this.state.slug) {
+                sectionContent = {
+                    name: sec.sections[i].name,
+                    slug: sec.sections[i].slug,
+                    image: sec.sections[i].image,
+                    colour: sec.sections[i].colour,
+                    pages: sec.sections[i].pages
+                }
+            }
         }
+
         this.setState({
-            sections: arr
+            content: sectionContent
         });
 
+
+    }
+
+    onPageClick(name) {
+        this.setState({
+            navigate: true,
+            nextPage: name
+        })
     }
 
     render() {
 
-        const sections = this.state.sections.map(section => {
-            return (
-                <div className="card card-block col-md-6 section">
-                    <div><a href={ section.slug } className="section-link">{section.name}</a></div>
-                </div>
-            );
-        });
+        if (this.state.navigate) {
+            return <Redirect to={"/sections/" + this.state.slug + "/" + this.state.nextPage} push={true} />
+        }
+
+        let pages;
+        if (this.state.content.pages) {
+            pages = this.state.content.pages.map(page => {
+                return <p onClick={() => this.onPageClick(page.name)}>{page.name}</p>;
+            });
+        }
 
         return (
             <div className="container">
-                <div className="row auto-clear" >
-                    {sections}
-                </div>
+                <p><a onClick={this.props.history.goBack}>Back</a></p>
+                <h1>{this.state.content.name}</h1>
+                {pages}
             </div>
         );
     }

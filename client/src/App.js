@@ -23,10 +23,11 @@ class App extends Component {
                     <Route exact path="/" render={() =>
                         <Language  />}
                     />
-                    <Route path="/home" render={() =>
+                    <Route exact path="/home" render={() =>
                         <Home />}
                     />
-                    <Route path="/sections/:sectionid" render={(props) => <Section {...props} />}/>
+                    <Route exact path="/sections/:sectionid" render={(props) => <Section {...props} />}/>
+                    <Route expact path="/sections/:sectionid/:pageid" render={(props) => <Page {...props} />}/>
                 </Switch>
             </BrowserRouter>
         </div>
