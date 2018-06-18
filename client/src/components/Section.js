@@ -17,14 +17,10 @@ class Section extends Component {
 
     }
 
-    componentDidMount() {
-        const storage = localStorage.getItem('content');
-        const language = localStorage.getItem('language');
-        const storageJSON = JSON.parse(storage);
-
-        const sec = storageJSON[0][language];
+    checkIsThere(arr) {
 
         let sectionContent;
+        let found = false;
 
         for (let i = 0; i < sec.sections.length; i++) {
             if (sec.sections[i].slug === this.state.slug) {
@@ -35,13 +31,29 @@ class Section extends Component {
                     colour: sec.sections[i].colour,
                     pages: sec.sections[i].pages
                 }
+                found = true;
             }
         }
 
-        this.setState({
-            content: sectionContent
-        });
+        if (found) {
+            this.setState({
+                content: sectionContent
+            });
+        }
 
+    }
+
+    componentDidMount() {
+        const storage = localStorage.getItem('content');
+        const language = localStorage.getItem('language');
+        const storageJSON = JSON.parse(storage);
+
+        const sec = storageJSON[0][language];
+
+        let isInLanguage = checkIsThere(sec);
+        if (!isInLanguage) {
+            checkIsThere(storageJSON[0]["en"]);
+        }
 
     }
 
